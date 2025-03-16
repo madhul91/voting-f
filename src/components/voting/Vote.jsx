@@ -19,7 +19,7 @@ const SubmitVote = async(e)=>{
     history.push('/vote')
   }
   else{
-    const res = await fetch('/voterecording' , { 
+    const res = await fetch('https://voting-b.onrender.com/voterecording' , { 
       method: 'POST',
       headers:{
           "Content-Type" : "application/json"

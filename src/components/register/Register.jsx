@@ -28,7 +28,7 @@ const Login = () => {
         }
         else{
             
-       const res = await fetch('/register', {
+       const res = await fetch('https://voting-b.onrender.com/register', {
            method: 'POST',
            headers:{
                "Content-Type" : "application/json"

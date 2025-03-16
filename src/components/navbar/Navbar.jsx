@@ -7,7 +7,7 @@ const history =useHistory();
 const logout=async(e)=>{
 e.preventDefault();
 
-    const logo = await fetch('/logout' , {
+    const logo = await fetch('https://voting-b.onrender.com/logout' , {
         method: 'GET'
     });
     if(logo.status === 200){
