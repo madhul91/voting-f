@@ -19,15 +19,18 @@ const Login = () => {
             body: JSON.stringify({ password, aadhar })
         });
     
-        const data = await res.json();  // ✅ Wait for JSON response
+        const data = await res.json();  
     
         if (res.status === 400) {
             alert("Wrong login credentials");
         } else {
-            alert(data.message);  // ✅ Show the proper JSON message
+            alert(data.message);  
+            localStorage.setItem('aadhar', aadhar); // ✅ Store Aadhar in localStorage
+            localStorage.setItem('aadhar-password', password); // ✅ Store Password in localStorage
             history.push('/');
         }
     };
+    
     
   return (
       <>

@@ -9,41 +9,47 @@ const Vote = () => {
 const [vote,setVote]  = useState('')
 
 
-const SubmitVote = async(e)=>{
-  e.preventDefault()
-  const aadhar =  localStorage.getItem('aadhar')
-  const password = localStorage.getItem('aadhar-password')
+const SubmitVote = async (e) => {
+  e.preventDefault();
+
+  const aadhar = localStorage.getItem('aadhar');
+  const password = localStorage.getItem('aadhar-password');
   const party = vote;
-  if(vote === ""){
-    alert('Please Select an option')
-    history.push('/vote')
-  }
-  else{
-    const res = await fetch('https://voting-b.onrender.com/voterecording' , { 
-      method: 'POST',
-      headers:{
-          "Content-Type" : "application/json"
-      },
-      body:JSON.stringify({
-          aadhar,password,party
-      })
-    })
 
+  console.log("Aadhar:", aadhar); // Debugging log
+  console.log("Password:", password); // Debugging log
 
-        if(res.status===400){
-            alert("Please login to vote")
-            history.push('/signin')
-        }
-        if(res.status===500){
-          alert("You have already voted. Can not vote again");
-          history.push('/')
-        }
-        if(res.status===200){
-            alert("Vote recorded successfully")
-            history.push('/')
-        }
+  if (!aadhar || !password) {
+    alert("You are not logged in. Please log in first.");
+    history.push('/signin');
+    return;
   }
-}
+
+  if (!vote) {
+    alert('Please select an option');
+    return;
+  }
+
+  const res = await fetch('https://voting-b.onrender.com/voterecording', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ aadhar, password, party })
+  });
+
+  if (res.status === 400) {
+    alert("Please log in to vote");
+    history.push('/signin');
+  } else if (res.status === 500) {
+    alert("You have already voted. Cannot vote again.");
+    history.push('/');
+  } else if (res.status === 200) {
+    alert("Vote recorded successfully");
+    history.push('/');
+  }
+};
+
 
 
   return (
