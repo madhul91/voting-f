@@ -9,31 +9,26 @@ const Login = () => {
     // const [email , setEmail] = useState('')
     const [password , setPassword] = useState('')
 
-    const LoginUser = async(e)=>{
-localStorage.setItem("aadhar",aadhar)
-localStorage.setItem("aadhar-password",password)
-
+    const LoginUser = async (e) => {
         e.preventDefault();
-        const res = await fetch('https://voting-b.onrender.com/login' , {
+        const res = await fetch('https://voting-b.onrender.com/login', {
             method: 'POST',
-            headers:{
-                "Content-Type" : "application/json"
+            headers: {
+                "Content-Type": "application/json"
             },
-            body:JSON.stringify({
-                password,aadhar
-            })
-
+            body: JSON.stringify({ password, aadhar })
         });
-
-        const data = res.json();
-        if(res.status===400){
-            alert("Wrong login creditentials")
+    
+        const data = await res.json();  // ✅ Wait for JSON response
+    
+        if (res.status === 400) {
+            alert("Wrong login credentials");
+        } else {
+            alert(data.message);  // ✅ Show the proper JSON message
+            history.push('/');
         }
-        else{
-            alert("Logged in Successfull")
-            history.push('/')
-        }
-    }
+    };
+    
   return (
       <>
       <Container>
